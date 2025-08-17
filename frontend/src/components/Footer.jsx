@@ -6,7 +6,7 @@ export default function Footer() {
         {/* Column 1 - About Us */}
         <div className="w-full md:w-1/4">
           <h3 className="text-2xl font-semibold mb-4 border-b-2 border-blue-600 pb-2">
-            About Us inam
+            About Us inam feros
           </h3>
           <p className="text-blue-300 text-sm leading-relaxed">
             We deliver high-quality web solutions for modern businesses, focusing on performance, design, and usability.  
