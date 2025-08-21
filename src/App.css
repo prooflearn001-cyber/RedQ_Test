@@ -1,0 +1,162 @@
+@layer base {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  body {
+    background: #000 url('./assets/background.jpg') no-repeat center center;
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Background overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+  }
+
+  /* Background zoom animation */
+  @keyframes zoom {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.1);
+    }
+  }
+
+  /* Apply zoom effect to background */
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    background-size: cover;
+    z-index: -2;
+    animation: zoom 20s ease-in-out infinite alternate;
+    transform-origin: center;
+  }
+
+  #root {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    body {
+      background-attachment: scroll;
+      background-position: center center;
+      background-size: cover;
+    }
+    
+    body::after {
+      animation: zoom 30s ease-in-out infinite alternate;
+    }
+
+    /* Optimize background for mobile performance */
+    body::before {
+      background: rgba(0, 0, 0, 0.6);
+    }
+  }
+
+  @media (max-width: 480px) {
+    body {
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* Reduce animation intensity on smaller screens */
+    body::after {
+      animation: zoom 40s ease-in-out infinite alternate;
+    }
+
+    /* Stronger overlay for better text readability on mobile */
+    body::before {
+      background: rgba(0, 0, 0, 0.7);
+    }
+  }
+
+  @media (max-width: 360px) {
+    /* Further optimize for very small screens */
+    body::after {
+      animation: none;
+    }
+  }
+
+  /* Performance optimizations */
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Touch-friendly interactions for mobile */
+  @media (hover: none) and (pointer: coarse) {
+    /* Increase touch targets */
+    button, a, input, select, textarea {
+      min-height: 44px;
+      min-width: 44px;
+    }
+
+    /* Improve touch scrolling */
+    * {
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+
+  /* High DPI display optimizations */
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    body {
+      background-size: cover;
+    }
+  }
+
+  /* Landscape orientation adjustments */
+  @media (orientation: landscape) and (max-height: 500px) {
+    body::after {
+      animation: none;
+    }
+  }
+
+  /* Dark mode support */
+  @media (prefers-color-scheme: dark) {
+    body::before {
+      background: rgba(0, 0, 0, 0.6);
+    }
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    body::after {
+      animation: none;
+    }
+    
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
